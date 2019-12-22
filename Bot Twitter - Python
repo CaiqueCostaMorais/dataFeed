@@ -1,0 +1,21 @@
+from twitterscraper import query_tweets
+import datetime as dt
+import pandas as pd
+
+
+begin_date = dt.date(2019,4,15) #data inicial do tweet
+end_date = dt.date(2019,4,18)   #data final do tweet
+
+limit = 1000         #limite de tweets para busca
+
+lang = 'portuguese'  #língua em que os tweets serão buscados
+
+
+#faz a busca no Twitter com os parâmetros estabelecidos
+tweets = query_tweets("bolsonaro",begindate= begin_date,enddate=end_date,limit=limit,lang=lang)
+
+#transforma as infos coletadas em um data frame
+df = pd.DataFrame(t.__dict__ for t in tweets)
+
+#converte as infos num arquivo csv
+df.to_csv('Twitter.csv', sep=';', encoding='utf-8')
